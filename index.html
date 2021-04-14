@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>countries of the world</title>
+</head>
+<body class="index">
+    <header class="header">
+        <div class="container">
+            <div class="header__text">
+                <h1>countries of the world!!</h1>
+            </div>
+            <div class="header__mode">
+                <img class="header__mode-icon" src="icons/moon-light.svg" alt="modo claro">
+                <p class="header__mode-text">Drark Mode</p>
+            </div>
+        </div>
+     </header>    
+ 
+     <main class="main container">
+         <div class="search ">
+             <div class="main__inputSearch">
+                 <input type="text" placeholder="Search for a country...">
+                 <img class="icon" src="icons/search.svg" alt="buscar">
+             </div>
+             <div class="main__region">
+                     <h3 class="main__region-select">search by region <img src="icons/arrow-region.svg" alt="arrow" class="arrow-region"></h3>
+                     <div class="main__region-option">
+                         <ul>
+                             <li data-region="americas" class="region">America</li>
+                             <li data-region="europe" class="region">Europe</li>
+                             <li data-region="asia" class="region">Asia</li>
+                             <li data-region="oceania" class="region">Oceania</li>
+                             <li data-region="africa" class="region">Africa</li>
+                         </ul>
+                     </div>
+             </div>
+         </div>
+ 
+         <div class="paises "></div>
+     </main>
+     <script src="./js/app.js" type="module"></script>
+      
+</body>
+</html>
