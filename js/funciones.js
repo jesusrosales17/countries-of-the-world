@@ -1,12 +1,14 @@
 import API from "./API.js";
 import {contenedorPaises} from "./app.js";
-export const detener = () =>{
-    return;
-}
+
+//funcion para el modo oscuro
 
 export const alerta = (mensaje,tipo) => {
+    //creamos la alerta
     const divAlerta = document.createElement("DIV");
+    //le agregamos el mensaje
     divAlerta.textContent = mensaje;
+
     if(tipo === "error"){
         if(localStorage.getItem("dark") === "true"){
             divAlerta.classList.add("alerta-dark");
@@ -15,6 +17,7 @@ export const alerta = (mensaje,tipo) => {
     }
    contenedorPaises.appendChild(divAlerta);
 
+   //eliminamos la alerta pasando 3 segundos
    setTimeout(()=>{
        divAlerta.remove();
    },3000);
@@ -23,7 +26,8 @@ export const alerta = (mensaje,tipo) => {
 
 export const mostrarRegiones = () => {
     const opciones = document.querySelector(".main__region-option");
-    const img = document.querySelector(".arrow-region")
+    const img = document.querySelector(".arrow-region");
+    
     if(opciones.classList.contains("activo")){
         opciones.classList.remove("activo");
         opciones.style.display = "none";
@@ -33,7 +37,6 @@ export const mostrarRegiones = () => {
     opciones.style.display = "block";
     img.style.transform = "rotate(180deg)";
     opciones.classList.add("activo");
-    // img.classList.add("activo");
 }
 
 export const optenerPais = (e) =>{
@@ -43,20 +46,32 @@ export const optenerPais = (e) =>{
 
 
 export const mostrarPaises = (paises) => {
+        //creamos un fragmento
+        const contenedor = document.createDocumentFragment();
+
+       
         paises.forEach(pais => {
+        
+        // hacemos destrocturing a pais
         const {flag, name, population, region, capital} = pais;
+         //DOM SCRIPTING
+
+        //creamos un contenedor para los paises
         const contenedorPais = document.createElement("DIV");
         contenedorPais.classList.add("contenedorPais");
+
+        //si existe dark en el localStorage agregamos la clase element-dark a el contenedor
         if(localStorage.getItem("dark") === "true"){
             contenedorPais.classList.add("element-dark");
         }
         
+        //si solo hay un elemento le agregamos la clase unico y si no se la quitamos
         if(paises.length === 1){
-         
             contenedorPaises.classList.add("unico")
         }else{
             contenedorPaises.classList.remove("unico")
         }
+
         const divImagen = document.createElement("DIV");
         //agregamos el nombre
 
@@ -66,6 +81,8 @@ export const mostrarPaises = (paises) => {
         //agregamos la imagen
         const imagen = document.createElement("IMG");
         imagen.src = flag;
+        imagen.alt = `${name} flag`;
+        imagen.loading = "lazy";
         divImagen.classList.add("imagenDiv");
         divImagen.appendChild(imagen);
 
@@ -104,16 +121,18 @@ export const mostrarPaises = (paises) => {
         contenedorPais.appendChild(divRegion);
         contenedorPais.appendChild(divCapital);
         
-        contenedorPaises.appendChild(contenedorPais);
-         contenedorPais.addEventListener("click",()=>{
+        //agregamos el contenedor del pais al fragmento
+        contenedor.appendChild(contenedorPais);
+        //al aser click guardamos el nombre del pais en el localStorage y redireccionamos a la pagina de mas informacion
+        contenedorPais.addEventListener("click",()=>{
              localStorage.setItem("nombre",name);
              window.location = "mas_informacion.html";
          });
     });
+    //agregamos el fragmento al dom
+    contenedorPaises.appendChild(contenedor);
 }
-export const mostrarPais = (pais) =>{
-    console.log(pais);
-}
+
 export const limpiarHTML = () =>{ 
     while(contenedorPaises.firstChild){
         contenedorPaises.removeChild(contenedorPaises.firstChild);
@@ -188,6 +207,7 @@ export const masInformacion = (pais) =>{
     });
     border_countries.appendChild(parrafo);
 }
+
 export function dark(){
     const body = document.querySelector("body");
     const header = document.querySelector(".header");
@@ -201,51 +221,51 @@ export function dark(){
     const masInfo = document.querySelector(".mas_informacion__container");
     const btn_regresar = document.querySelector(".mas_informacion__btn-regresar");
     const icon_btn_regresar = document.querySelector(".mas_informacion__btn-regresar a img");
+
+    //al dar click si ya existe la clase se quita y si no se pone
+    header.classList.toggle("element-dark");
+    contenedorPais.forEach(pais => {
+        pais.classList.toggle("element-dark");
+    });
+
+    // si estamos en el index cambiamos la direccion del icono y agregamos unas clases
+    if(document.querySelector(".index")){
+        icon.src = "icons/search-dark.svg";
+        arrow.src = "icons/arrow-region-dark.svg"
+        select.classList.toggle("element-dark");
+        option.classList.toggle("element-dark");
+        input.classList.toggle("element-dark");
+    }else{
+        icon_btn_regresar.src = "icons/arrow-dark.svg";
+        masInfo.classList.toggle("element-dark");
+        btn_regresar.classList.toggle("element-dark");
+    }
+
+    // si existe la clase body-dark removemos dark del localStorage, cambiamos las direcciones de los iconos,etc
     if(document.querySelector(".body-dark")){
-     
+        //agregamos dark al localStorage
         localStorage.removeItem('dark');
         body.classList.remove("body-dark")
 
-        header.classList.remove("element-dark");
-        contenedorPais.forEach(pais => {
-            pais.classList.remove("element-dark")
-        });
         moon.src = "icons/moon-light.svg"
 
+        //cambiamos la direccion de los iconos dependiendo de la pagina
         if(document.querySelector(".index")){
             icon.src = "icons/search.svg";
             arrow.src = "icons/arrow-region.svg"
-            select.classList.remove("element-dark");
-            option.classList.remove("element-dark");
-            input.classList.remove("element-dark");
+
         }else{
             icon_btn_regresar.src = "icons/arrow.svg";
-            masInfo.classList.remove("element-dark");
-            btn_regresar.classList.remove("element-dark");
         }
 
         return;
     }
-       
-
-
-    header.classList.add("element-dark");
-    contenedorPais.forEach(pais => {
-        pais.classList.add("element-dark");
-    });
-    body.classList.add("body-dark");
-    moon.src = "icons/moon-dark.svg"
-    if(document.querySelector(".index")){
-        icon.src = "icons/search-dark.svg";
-        arrow.src = "icons/arrow-region-dark.svg"
-        select.classList.add("element-dark");
-        option.classList.add("element-dark");
-        input.classList.add("element-dark");
-    }else{
-        icon_btn_regresar.src = "icons/arrow-dark.svg";
-        masInfo.classList.add("element-dark");
-        btn_regresar.classList.add("element-dark");
-    }
     
+    //agregamos la clase body-dark
+    body.classList.add("body-dark");
+    moon.src = "icons/moon-dark.svg";
+
+
+
     localStorage.setItem("dark","true"); 
 }

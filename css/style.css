@@ -48,6 +48,8 @@ body{
 }
 .header__mode-icon{
   width: 2rem;
+  height: 2rem;
+  margin: auto;
   margin-right: 1rem;
 }
 .header__mode{
@@ -128,6 +130,7 @@ body{
 }
 .arrow-region{
   width: 2rem;
+  height: 2rem;
   transition: transform .3s;
 }
 
