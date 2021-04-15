@@ -161,13 +161,14 @@ export const masInformacion = (pais) =>{
     const languajes = document.querySelector(".languajes span");
     const border_countries = document.querySelector(".border-countries");
     
+    
     //agregamos la image
    mas_informacion__img.src = flag;
    mas_informacion__img.alt = `bandera de ${name}`
 
    //agregamos el nombre
    nombrePais.textContent = name;
-
+   
    //agregamos el nombre nativo
     nombreNativo.textContent = nativeName;  
     
@@ -195,17 +196,23 @@ export const masInformacion = (pais) =>{
     languajes.textContent = listaLenguajes.join(", ");
 
     //agregamos los border countries
-    const parrafo = document.createElement("P");
-    parrafo.classList.add("border-countries__pais");
+    // const parrafo = document.createElement("P");
     if(borders.length === 0){
-        console.log(borders);
-        parrafo.textContent = "none"
+        const parrafo = document.createElement("P");
+        parrafo.textContent = "none";
+        parrafo.classList.add("border-countries__pais");
+        border_countries.appendChild(parrafo);
     }
-    borders.forEach(pais => {
-        console.log(borders)    
-        parrafo.textContent = pais;
+    borders.forEach((pais,i,border) => {
+        if(border.length === 0){
+            parrafo.textContent = "none";
+            border_countries.appendChild(parrafo);
+        }
+        const parrafo = document.createElement("P");
+        parrafo.textContent= pais;
+        parrafo.classList.add("border-countries__pais");
+        border_countries.appendChild(parrafo);
     });
-    border_countries.appendChild(parrafo);
 }
 
 export function dark(){
