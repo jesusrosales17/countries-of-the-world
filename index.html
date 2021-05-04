@@ -10,6 +10,7 @@
     <title>World's countries</title>
 </head>
 <body class="index">
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="header__text">
@@ -20,14 +21,17 @@
                 <p class="header__mode-text">Dark Mode</p>
             </div>
         </div>
-     </header>    
- 
+     </header><!-- Header -->
+
+     <!-- Main -->
      <main class="main container">
+
          <div class="search ">
              <div class="main__inputSearch">
                  <input type="text" placeholder="Search for a country...">
                  <img class="icon" src="icons/search.svg" alt="buscar">
-             </div>
+             </div> <!--main__inputSearch-->
+
              <div class="main__region">
                      <p class="main__region-select">search by region <img src="icons/arrow-region.svg" alt="arrow" class="arrow-region"></p>
                      <div class="main__region-option">
@@ -38,10 +42,11 @@
                              <li data-region="oceania" class="region">Oceania</li>
                              <li data-region="africa" class="region">Africa</li>
                          </ul>
-                     </div>
-             </div>
-         </div>
- 
+                     </div><!--main__region-option-->
+             </div><!-- Main__Region-->
+         </div> <!-- Search -->
+         
+         <!--Contenedor donde agregare los paises-->
          <div class="paises "></div>
      </main>
      <script src="./js/app.js" type="module"></script>

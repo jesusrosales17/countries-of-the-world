@@ -147,8 +147,11 @@ export const optenerRegion = (e) =>{
 }
 
 export const masInformacion = (pais) =>{
-    
-    const {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages, borders} = pais[0];
+    if(pais.length === 1){      
+        var {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages, borders} = pais[0];
+    }else{
+        var {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages, borders} = pais;
+    }
     const mas_informacion__img = document.querySelector(".mas_informacion__container-img img");
     const nombreNativo = document.querySelector(".nativeName span");
     const nombrePais = document.querySelector(".nombrePais");
@@ -202,17 +205,26 @@ export const masInformacion = (pais) =>{
         parrafo.textContent = "none";
         parrafo.classList.add("border-countries__pais");
         border_countries.appendChild(parrafo);
-    }
-    borders.forEach((pais,i,border) => {
-        if(border.length === 0){
-            parrafo.textContent = "none";
+    }else{
+        borders.forEach((pais,i,border) => {
+            // if(border.length === 0){
+            //     parrafo.textContent = "none";
+            //     border_countries.appendChild(parrafo);
+            // }
+            const parrafo = document.createElement("P");
+            parrafo.textContent= pais;
+            parrafo.classList.add("border-countries__pais");
             border_countries.appendChild(parrafo);
-        }
-        const parrafo = document.createElement("P");
-        parrafo.textContent= pais;
-        parrafo.classList.add("border-countries__pais");
-        border_countries.appendChild(parrafo);
-    });
+            parrafo.onclick = () =>{
+                const name = pais;
+                // const url = `https://restcountries.eu/rest/v2/name/${name}?fullText=true`; 
+                // const api = new API(url);
+                // console.log(api);
+                localStorage.setItem("nombre",name);
+                window.location.reload();
+            }
+        });
+    }
 }
 
 export function dark(){
